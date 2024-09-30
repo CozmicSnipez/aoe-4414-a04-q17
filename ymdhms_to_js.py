@@ -23,24 +23,12 @@ import sys   # for argv to handle command-line arguments
 
 # Helper function to convert calendar date to Julian Date
 def ymdhms_to_jd(year, month, day, hour, minute, second):
-    # Check if the month is January or February
     if month <= 2:
         year -= 1
         month += 12
-    
-    # Calculate the Julian Day Number (JDN)
-    A = math.floor(year / 100)
-    B = 2 - A + math.floor(A / 4)
-    
-    jd = math.floor(365.25 * (year + 4716)) + math.floor(30.6001 * (month + 1)) + day + B - 1524.5
-    
-    # Fractional day
-    frac_day = (hour + minute / 60.0 + second / 3600.0) / 24.0
-    
-    # Add the fractional day to the Julian Day Number
-    jd_frac = jd + frac_day
-    
-    return jd_frac
+    jd = math.floor(365.25*(year+4716))+math.floor(30.6001*(month+1))+day+(2-(math.floor(year/100))+ math.floor((math.floor(year/100))/4))-1524.5
+    frac_day = (hour+minute/60.0+second/3600.0)/24.0
+    return jd+frac_day
 
 # Parse script arguments
 if len(sys.argv) == 7:
